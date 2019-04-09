@@ -36,7 +36,7 @@ public class ShiroConfig {
          *         authc：必须认证才可以访问
          *         user：如果使用rememberMe的功能可以直接访问
          *         perms：该资源必须得到资源的权限才可以访问
-         *         role：该资源必需得到权限的角色权限才可以访问
+         *         roles：该资源必需得到权限的角色权限才可以访问
          */
       //  Map<String, String> filterMap = new LinkedHashMap<String, String> ();
         // filterMap.put("/add","authc");
@@ -55,15 +55,12 @@ public class ShiroConfig {
         //filterMap.put ("/*", "authc");
 
         Map<String, String> filterMap = new LinkedHashMap<String, String> ();
-        filterMap.put ("/*", "anon");
         List<VUser> vUserList=vuserDao.findAll ();
         System.out.println (vUserList.size ());
         for(VUser vUser:vUserList){
-           filterMap.put (vUser.getPermissionName (),"role["+vUser.getRoleName ()+"]");
+            filterMap.put (vUser.getPermissionName (),"roles["+vUser.getRoleName()+"]");
         }
-        filterMap.put ("/hello", "anon");
         filterMap.put ("/login", "anon");
-        filterMap.put ("/test", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         //修改拦截后的跳转页面
         shiroFilterFactoryBean.setLoginUrl ("/tologin");

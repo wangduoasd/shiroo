@@ -16,7 +16,4 @@ public class Permission implements Serializable {
   private String permissionName;
   private String note;
 
-
-
-
 }
